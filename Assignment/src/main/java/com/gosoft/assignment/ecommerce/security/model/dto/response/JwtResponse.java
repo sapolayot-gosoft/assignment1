@@ -1,4 +1,4 @@
-package com.gosoft.assignment.ecommerce.security.model;
+package com.gosoft.assignment.ecommerce.security.model.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

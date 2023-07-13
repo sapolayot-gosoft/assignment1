@@ -1,0 +1,53 @@
+spring:
+  profiles:
+    active:
+      - local
+#      - docker
+---
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+  config:
+    activate:
+      on-profile: local
+app:
+  jwtSecret: JWTSuperSecretKey
+  jwtExpirationInMs: 3600000
+  jwtRefreshExpirationInMs: 21600000
+physicalImageLocation: /images/
+imageServer: http://localhost:8080/images/
+---
+spring:
+  datasource:
+    url: jdbc:mysql://db:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+  config:
+    activate:
+      on-profile: docker
+app:
+  jwtSecret: JWTSuperSecretKey
+  jwtExpirationInMs: 3600000
+  jwtRefreshExpirationInMs: 21600000
+physicalImageLocation: /images/
+imageServer: http://localhost:8080/images/

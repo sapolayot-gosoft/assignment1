@@ -1,4 +1,4 @@
-package com.gosoft.assignment.ecommerce.model.dao;
+package com.gosoft.assignment.ecommerce.model.entity;
 
 import com.gosoft.assignment.ecommerce.model.BaseEntity;
 import jakarta.persistence.Cacheable;

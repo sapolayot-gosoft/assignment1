@@ -14,15 +14,15 @@ import java.util.*;
 public abstract class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @Version
-    private Long version;
+    protected Long version;
 
     @CreatedDate
-    private Date createdDate;
+    protected Date createdDate;
 
     @LastModifiedDate
-    private Date lastModifiedDate;
+    protected Date lastModifiedDate;
 
 }

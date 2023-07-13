@@ -12,5 +12,7 @@ public class ResponseDTO {
 
     private String subject;
 
+    private Object data;
+
     private String message;
 }
