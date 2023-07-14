@@ -15,7 +15,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/manage-list',
     name: 'manage-list',
-    component: () => import('../views/ManageListView.vue')
+    component: () => import('../views/ManageListView.vue'),
+    meta: {
+      middleware: [auth],
+    },
   },
   {
     path: '/my-profile',

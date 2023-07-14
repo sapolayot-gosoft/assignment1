@@ -3,10 +3,11 @@ export interface CreateUser {
 }
 export interface CreateOrUpdateUserInput {
     username: string;
-    // fullName: string;
+    fullName: string | null;
     phone: string;
+    oldPassword: string | null;
     password: string;
-    rePassword: string;
+    rePassword: string | null;
 }
 export interface LoginUserInput {
     username: string;
@@ -20,7 +21,13 @@ export interface SearchInput {
     search: string
 }
 
-export interface ProductUpdateInput {
+// export interface ProductCreateInput {
+//     SKU: string;
+//     price: number;
+//     name: string;
+//     detail: string;
+// }
+export interface ProductCreateOrUpdateInput {
     id: number | null;
     SKU: string;
     price: number;

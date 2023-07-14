@@ -23,26 +23,26 @@ export default {
       }
     );
   },
-  // getProfile: () => {
-  //   return axios.api.get(`/auth/user`).then(
-  //     (response) => {
-  //       return response.data;
-  //     },
-  //     (error) => {
-  //       return error.response.data;
-  //     }
-  //   );
-  // },
-  // editProfile: (data: CreateOrUpdateUserInput) => {
-  //   return axios.api.put(`/auth/user`, data).then(
-  //     (response) => {
-  //       return response.data;
-  //     },
-  //     (error) => {
-  //       return error.response.data;
-  //     }
-  //   );
-  // },
+  getProfile: (id: number) => {
+    return axios?.api.get(`/user/${id}`).then(
+      (response: AxiosResponse) => {
+        return response.data;
+      },
+      (error: AxiosError) => {
+        return error?.response?.data;
+      }
+    );
+  },
+  editProfile: (data: CreateOrUpdateUserInput) => {
+    return axios?.api.put(`/user`,data).then(
+      (response: AxiosResponse) => {
+        return response.data;
+      },
+      (error: AxiosError) => {
+        return error?.response?.data;
+      }
+    );
+  },
   // uploadImage: (data: FormData) => {
   //   return axios.api
   //     .post(`/auth/user/uploadImage`, data, {
@@ -69,14 +69,14 @@ export default {
   //     }
   //   );
   // },
-  // logout: () => {
-  //   return axios.api.post(`/auth/logout`).then(
-  //     (response) => {
-  //       return response.data;
-  //     },
-  //     (error) => {
-  //       return error.response.data;
-  //     }
-  //   );
-  // },
+  logout: () => {
+    return axios.api.post(`/auth/logout`).then(
+      (response: AxiosResponse) => {
+        return response.data;
+      },
+      (error: AxiosError) => {
+        return error?.response?.data;
+      }
+    );
+  },
 };

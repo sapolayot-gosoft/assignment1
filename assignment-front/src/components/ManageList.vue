@@ -20,7 +20,7 @@
         <v-btn
           type="button"
           :text="titleBtn"
-          @click="dialog = true"
+          @click="dialog = true; clearData()"
           color="orange"
           class="text-black"
           width="100px"
@@ -34,7 +34,7 @@
           <v-btn
             variant="text"
             type="button"
-            @click="editItem(item.id)"
+            @click="editItem(item)"
             text="แก้ไข"
             class="text-black"
             width="100px"
@@ -60,8 +60,12 @@
       <v-dialog v-model="dialog" width="700px">
         <v-card>
           <div class="text-center pa-6">
-            <h1 class="mb-8">เพิ่มสินค้า</h1>
-            <v-form ref="form" lazy-validation @submit.prevent>
+            <h1 class="mb-8">{{ productTitle === "create" ? "เพิ่มสินค้า": "แก้ไขสินค้า" }}</h1>
+            <v-form
+              ref="form"
+              lazy-validation
+              @submit.prevent="productTitle === `create` ? createProduct(): editProduct()"
+            >
               <v-text-field
                 type="text"
                 label="SKU"
@@ -110,7 +114,7 @@
         <v-card>
           <div class="text-center pa-6">
             <h1 class="mb-8">สร้างคำสั่งซื้อ</h1>
-            <v-form ref="form" lazy-validation @submit.prevent>
+            <v-form ref="form" lazy-validation @submit.prevent="createOrder">
               <v-select
                 label="ผู้ขาย"
                 :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
@@ -119,7 +123,7 @@
                 label="สินค้า"
                 :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"
               ></v-select>
-              
+
               <div class="d-flex text-center">
                 <v-btn type="submit" text="ตกลง" color="green" class="text-white" width="50%" />
                 <v-spacer></v-spacer>
@@ -142,7 +146,7 @@
 import { defineComponent } from "vue";
 import moment from "moment";
 import statusEnum from "@/utils/enum";
-import { ProductUpdateInput } from "../types/Input";
+import {  ProductCreateOrUpdateInput } from "../types/Input";
 
 export default defineComponent({
   name: "ManageList",
@@ -167,14 +171,52 @@ export default defineComponent({
         price: 0,
         name: "",
         detail: ""
-      } as ProductUpdateInput,
-      dialog: false
+      } as ProductCreateOrUpdateInput,
+      // formOrder: {
+      //   id: null,
+      //   SKU: "",
+      //   price: 0,
+      //   name: "",
+      //   detail: ""
+      // } as ProductUpdateInput,
+      dialog: false,
+      productTitle: "create"
     };
   },
   methods: {
-    editItem(id: any) {
+    createProduct() {
+      this.$emit("createProduct", this.formProduct);
+      this.dialog = false
+    },
+    editProduct() {
+      this.$emit("editProduct", this.formProduct);
+      this.dialog = false;
+    },
+    createOrder() {
+      // this.$emit("createOrder", this.formOrder)
+    },
+    clearData() {
+      this.formProduct = {
+        id: null,
+        SKU: "",
+        name: "",
+        detail: "",
+        price: 0
+      };
+    },
+    editItem(item: any) {
       if (this.title === "Product") {
-        this.$emit("editProduct", this.formProduct);
+        if (item) {
+          this.productTitle = "edit";
+          this.formProduct = {
+            id: item.id,
+            SKU: item.sku,
+            name: item.name,
+            detail: item.detail,
+            price: item.price
+          };
+          this.dialog = true;
+        }
       }
     },
     deleteItem(id: any) {

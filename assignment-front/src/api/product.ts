@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { ProductDeleteInput, ProductUpdateInput, SearchInput } from "../types/Input";
+import { ProductCreateOrUpdateInput, ProductDeleteInput, SearchInput } from "../types/Input";
 import axios from "./instance";
 
 export default {
@@ -13,7 +13,17 @@ export default {
       }
     );
   },
-  editProduct: (data?: ProductUpdateInput) => {
+  createProduct: (data?: ProductCreateOrUpdateInput) => {
+    return axios.api.post(`/product`, data).then(
+      (response: AxiosResponse) => {
+        return response.data;
+      },
+      (error: AxiosError) => {
+        return error?.response?.data;
+      }
+    );
+  },
+  editProduct: (data?: ProductCreateOrUpdateInput) => {
     return axios.api.put(`/product`, data).then(
       (response: AxiosResponse) => {
         return response.data;

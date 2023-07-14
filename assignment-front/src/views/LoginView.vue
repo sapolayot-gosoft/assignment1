@@ -104,6 +104,7 @@ export default defineComponent({
       if (resp) {
         if (!resp.subject) {
           this.$cookies.set("accessToken", resp.accessToken);
+          this.$cookies.set("id", resp.id);
           this.$cookies.set("refreshToken", resp.refreshToken);
           this.$cookies.set("type", resp.type);
           this.$router.push("/manage-list");
