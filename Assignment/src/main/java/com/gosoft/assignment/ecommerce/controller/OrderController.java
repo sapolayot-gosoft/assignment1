@@ -3,6 +3,7 @@ package com.gosoft.assignment.ecommerce.controller;
 import com.gosoft.assignment.ecommerce.model.dto.ResponseDTO;
 import com.gosoft.assignment.ecommerce.model.dto.request.OrderRequestDTO;
 import com.gosoft.assignment.ecommerce.model.dto.request.ProductRequestDTO;
+import com.gosoft.assignment.ecommerce.model.dto.response.OrderResponseDTO;
 import com.gosoft.assignment.ecommerce.model.entity.TbOrder;
 import com.gosoft.assignment.ecommerce.model.entity.TbProduct;
 import com.gosoft.assignment.ecommerce.model.entity.TbUser;
@@ -15,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -41,7 +43,8 @@ public class OrderController {
     @GetMapping(path = "/orders", produces = "application/json")
     public ResponseEntity getListOrder() {
         try {
-            return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK.value(), "GET DATA", orderService.getAll().stream().map(order -> order.toDTO()).toList(), "GET SUCCESS"));
+            List<OrderResponseDTO> response = orderService.getAll().stream().map(order -> order.toDTO()).toList();
+            return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK.value(), "GET DATA", response, "GET SUCCESS"));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body(new ResponseDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), null, e.getStackTrace().toString()));

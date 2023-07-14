@@ -4,7 +4,6 @@
     <div class="input-wrapper centered px-4">
       <h2>ระบบ Simple E-commerce</h2>
       <div class="input-container mt-6 mb-6">
-        
         <v-form ref="form" lazy-validation @submit.prevent="submitLogin">
           <v-text-field label="ชื่อผู้ใช้ (Username)" v-model="form.username" hide-details="auto"></v-text-field>
           <v-text-field
@@ -19,10 +18,6 @@
           </div>
         </v-form>
         <v-dialog v-model="dialog" width="50%">
-          <!-- <template v-slot:activator="{ props }">
-            <v-btn variant="outlined"  color="blue"  v-bind="props">Register</v-btn>
-          </template>-->
-
           <v-card>
             <div class="text-center pa-6">
               <h1 class="mb-8">ลงทะเบียน</h1>
@@ -76,15 +71,11 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-import UserAPI from "../api/user";
-import { LoginUserInput, CreateOrUpdateUserInput } from "../types/Input";
+import UserAPI from "@/api/user";
+import { LoginUserInput, CreateOrUpdateUserInput } from "@/types/Input";
 
 export default defineComponent({
   name: "HomeView",
-  components: {
-    HelloWorld
-  },
   data() {
     return {
       form: {
@@ -102,23 +93,40 @@ export default defineComponent({
   },
   methods: {
     async submitLogin() {
-      // alert("login")
+      // const validate = (this.$refs.form as Vue & {
+      //   validate: () => boolean;
+      // }).validate();
+      // if(validate){
+
+      // }
+
       const resp = await UserAPI.login(this.form);
-      if(resp.accessToken){
-        this.$router.push("/manageList")
+      if (resp) {
+        if (!resp.subject) {
+          this.$cookies.set("accessToken", resp.accessToken);
+          this.$cookies.set("refreshToken", resp.refreshToken);
+          this.$cookies.set("type", resp.type);
+          this.$router.push("/manage-list");
+        } else {
+          alert(resp.message)
+          // this.errorServerMessage = resp.message;
+          // setTimeout(() => {
+          //   this.errorServerMessage = "";
+          // }, 10000);
+        }
       }
     },
     async submitRegister() {
       // alert("register")
       const resp = await UserAPI.register(this.formRegister);
-      console.log(resp);
+      alert(`resp${resp.data}`);
     }
   }
 });
 </script>
 <style scoped>
 .background {
-  background-color: red;
+  background-color: black;
   height: 100vh;
   width: 60%;
 }

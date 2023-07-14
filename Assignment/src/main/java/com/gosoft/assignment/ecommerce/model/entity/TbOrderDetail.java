@@ -22,6 +22,7 @@ public class TbOrderDetail extends BaseEntity {
     private TbProduct tbProduct;
 
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private TbOrder tbOrder;

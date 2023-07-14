@@ -1,7 +1,6 @@
 package com.gosoft.assignment.ecommerce.controller;
 
 import com.gosoft.assignment.ecommerce.model.dto.ResponseDTO;
-import com.gosoft.assignment.ecommerce.model.dto.request.ProductRequestDTO;
 import com.gosoft.assignment.ecommerce.model.dto.request.UserRequestDTO;
 import com.gosoft.assignment.ecommerce.model.entity.TbMediaFile;
 import com.gosoft.assignment.ecommerce.model.entity.TbUser;

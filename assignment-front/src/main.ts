@@ -8,6 +8,7 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+// import moment  from "moment"
 
 import APIInstance from './plugins/APIInstance'
 
@@ -20,6 +21,9 @@ import VueCookies from 'vue-cookies'
 
 
 const app = createApp(App)
+// app.use(require('vue-moment'), {
+//   moment
+// })
 app.use(store)
 app.use(router)
 app.use(vuetify)

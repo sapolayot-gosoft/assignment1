@@ -15,3 +15,19 @@ export interface LoginUserInput {
 export interface FileInput {
     name: string;
 }
+
+export interface SearchInput {
+    search: string
+}
+
+export interface ProductUpdateInput {
+    id: number | null;
+    SKU: string;
+    price: number;
+    name: string;
+    detail: string;
+}
+
+export interface ProductDeleteInput {
+    id: number;
+}

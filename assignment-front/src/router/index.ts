@@ -1,27 +1,40 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import auth from "./../middleware/auth"
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: () => import('../views/HomeView.vue')
   },
   {
     path: '/login',
     name: 'login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue')
+    component: () => import('../views/LoginView.vue')
   },
   {
-    path: '/manageList',
-    name: 'manageList',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/ManageListView.vue')
+    path: '/manage-list',
+    name: 'manage-list',
+    component: () => import('../views/ManageListView.vue')
+  },
+  {
+    path: '/my-profile',
+    name: 'my-profile',
+    component: () => import('../views/MyProfileView.vue')
+  },
+  {
+    path: '/order-detail',
+    name: 'order-detail',
+    component: () => import('../views/OrderDetailView.vue')
+  },
+  {
+    path: '/product-detail',
+    name: 'product-detail',
+    component: () => import('../views/ProductDetailView.vue'),
+    meta: {
+      middleware: [auth],
+    },
+
   }
 ]
 

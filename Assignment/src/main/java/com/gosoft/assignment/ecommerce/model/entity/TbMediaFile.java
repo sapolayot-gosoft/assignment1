@@ -1,5 +1,6 @@
 package com.gosoft.assignment.ecommerce.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gosoft.assignment.ecommerce.model.BaseEntity;
 import com.gosoft.assignment.ecommerce.model.dto.response.MediaFileResponseDTO;
 import jakarta.persistence.*;
@@ -32,6 +33,7 @@ public class TbMediaFile extends BaseEntity {
     @Column
     private Long size;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     private TbUser tbUser;
 
