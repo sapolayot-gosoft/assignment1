@@ -53,7 +53,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Navbar from "../components/layout/Navbar.vue";
-import UserAPI from "@/api/user";
+// import UserAPI from "@/api/user";
+import useAuth from "@/middleware/auth";
+const { user } = useAuth();
 
 export default defineComponent({
   name: "MyProfileView",
@@ -78,8 +80,9 @@ export default defineComponent({
   },
   methods: {
     async fetchProfile() {
-      const id = this.$cookies.get("id");
-      const { data } = await UserAPI.getProfile(id);
+      // const id = this.$cookies.get("id");
+      const data = user.value ? user.value as any : "";
+      // const { data } = await UserAPI.getProfile(id);
       this.form = {
         username: data.username,
         phone: data.phone,
@@ -88,11 +91,10 @@ export default defineComponent({
         oldPassword: "",
         renewPassword: ""
       };
-      this.profileImage = data.profileImage
+      this.profileImage = data.profileImage;
     },
     async submitEditProfile() {
       // const { data } = await UserAPI.editProfile({ fullName: });
-
     }
   }
 });

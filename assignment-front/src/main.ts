@@ -25,10 +25,11 @@ const app = createApp(App)
 //   moment
 // })
 app.use(store)
+app.use(VueCookies)
 app.use(router)
 app.use(vuetify)
-app.use(VueCookies)
 app.use(APIInstance)
 app.mount("#app")
 
 // createApp(App).use(store).use(router).use(vuetify).mount('#app')
+

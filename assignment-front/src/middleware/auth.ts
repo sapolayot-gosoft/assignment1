@@ -1,19 +1,39 @@
-// import { Middleware } from "types";
+import { ref } from 'vue'
+import UserAPI from "@/api/user"
+import { RouteLocationNormalized } from 'vue-router'
 
-const pathWithOutAuth = ["", "/", "/login"];
+const user = ref(null)
 
-const auth: any = ({ app, route, redirect }: any) => {
-  const token = app.$cookies.get("accessToken");
-  console.log("token", token)
-  if (!token) {
-    if (!pathWithOutAuth.includes(route.matched[0].path)) {
-      return redirect("/login");
+export default () => {
+
+  const checkAuth = async (to: RouteLocationNormalized) => {
+    if (user.value)
+      if (to.name === "login") {
+        user.value = null;
+        return false
+      }
+
+    try {
+      const res = await UserAPI.getProfile(0);
+
+      // if user is returned, it means that the cookie is valid,
+      // and we are logged in
+      if (res.data) {
+        // set the user for later use
+        user.value = res.data
+        return true
+      }
+    } catch (err) {
+      // do nothing
     }
-  } else {
-    if (pathWithOutAuth.includes(route.matched[0].path)) {
-      return redirect("/manage-list");
-    }
+
+    // if we get here, it means we are not logged in
+    user.value = null;
+    return false;
   }
-};
 
-export default auth;
+  return {
+    user,
+    checkAuth
+  }
+}

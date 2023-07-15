@@ -36,6 +36,11 @@ public class UserController {
     @GetMapping(path = "/user/{id}", produces = "application/json")
     public ResponseEntity getUser(@PathVariable("id") Long id) {
         try {
+            if (id == 0) {
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                TbUser tbUser = (TbUser) auth.getCredentials();
+                id = tbUser.getId();
+            }
             return ResponseEntity.ok().body(new ResponseDTO(HttpStatus.OK.value(), "GET DATA", userService.getById(id).toDTO(), "GET SUCCESS"));
         } catch (Exception e) {
             e.printStackTrace();

@@ -19,7 +19,7 @@
         <ManageList
           title="Order"
           title-btn="สร้างคำสั่งซื้อ"
-          placeholder="เลขที่คำสั่งซ์้อ"
+          placeholder="เลขที่คำสั่งซื้อ"
           :items="orderList"
           :search="orderSearch"
         />

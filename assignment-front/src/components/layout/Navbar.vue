@@ -19,7 +19,7 @@ export default defineComponent({
   },
   data() {
     return {
-      title: "Assignment"
+      title: "Assignment",
     };
   },
   methods: {
